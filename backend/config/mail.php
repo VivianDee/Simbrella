@@ -49,6 +49,21 @@ return [
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url(env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
         ],
 
+      
+        'task_smtp' => [
+            'transport' => env('TASK_MAIL_MAILER', 'smtp'),
+            'host' => env('TASK_MAIL_HOST', 'smtp.gmail.com'),
+            'port' => env('TASK_MAIL_PORT', 587),
+            'encryption' => env('TASK_MAIL_ENCRYPTION', 'tls'),
+            'username' => env('TASK_MAIL_USERNAME'),
+            'password' => env('TASK_MAIL_PASSWORD'),
+            'from' => [
+                'address' => env('TASK_MAIL_FROM_ADDRESS', 'taskmanager398@gmail.com'),
+                'name' => env('TASK_MAIL_FROM_NAME', 'Task Manager'),
+            ],
+        ],
+
+
         'ses' => [
             'transport' => 'ses',
         ],
