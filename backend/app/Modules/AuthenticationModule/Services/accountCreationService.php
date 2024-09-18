@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
-class accountCreationService
+class AccountCreationService
 {
     public function register(Request $request)
     {

@@ -2,12 +2,34 @@
 
 namespace App\Modules\MailModule;
 
+use App\Mail\OtpMail;
 use App\Mail\WelcomeMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class MailModule
 {
+    public static function sendAccountRecoveryMail(Request $request): bool
+    {
+
+        $mail = new OtpMail([
+            "title" => "Account Recovery - TaskMaster",
+            "greeting" => "Hello",
+            "name" => $request->first_name,
+            "intro" => "We received a request to recover your account.",
+            "text" => "Your One-Time Password (OTP) is: " . $request->otp . "     .\n" .
+                      "This OTP will expire in " . $request->otp_expiry . " minuites .",
+            "outro" => "If you did not request this, please ignore this email.",
+            "companyName" => "TaskMaster",
+        ]);
+
+        $status = Mail::mailer("task_smtp")
+            ->to($request->email)
+            ->send($mail);
+
+        return $status ? true : false;
+    }
+
     public static function sendWelcomeMail(Request $request): bool
     {
         $mail = new WelcomeMail([

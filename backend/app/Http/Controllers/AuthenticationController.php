@@ -25,8 +25,27 @@ class AuthenticationController extends Controller
         return $this->authenticationModule->register($request);
     }
 
-    // Handles Changeing of Password
+    // Handles Changing of Password for authenticated users
     public function changePassword(Request $request) {
         return $this->authenticationModule->changePassword($request);
     }
+
+
+    // Handles Sending Otp Mail
+    public function sendOtp(Request $request) {
+        return $this->authenticationModule->sendOtp($request);
+    }
+
+    // Handles Changing of Password (with Otp) for unauthenticated users
+    public function recoverAccount(Request $request) {
+        return $this->authenticationModule->recoverAccount($request);
+    }
+
+
+
+    // Handles logout
+    public function logout(Request $request) {
+        return $this->authenticationModule->logout($request);
+    }
+
 }
