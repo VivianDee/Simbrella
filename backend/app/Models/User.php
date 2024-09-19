@@ -37,6 +37,10 @@ class User extends Authenticatable
         'email_verified_at',
         'password',
         'remember_token',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'pivot',
     ];
 
     /**
@@ -50,5 +54,23 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // A user can be assigned many tasks
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'assigned_to');
+    }
+
+    // A user can belong to many teams
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class, 'team_user');
+    }
+
+    // A user can manage many projects
+    public function projects()
+    {
+        return $this->hasManyThrough(Project::class, Team::class, 'id', 'team_id');
     }
 }
