@@ -19,8 +19,7 @@ class Task extends Model
     ];
 
     protected $hidden = [
-        'assigned_to',
-        'created_at',
+        // 'assigned_to',
         'updated_at',
         'deleted_at',
     ];

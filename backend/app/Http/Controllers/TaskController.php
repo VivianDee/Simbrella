@@ -33,6 +33,14 @@ class TaskController extends Controller
         return $this->taskModule->updateTask($request);
     }
 
+
+    // Toggle Task status
+    public function toggleTaskStatus(Request $request)
+    {
+        return $this->taskModule->toggleTaskStatus($request);
+    }
+
+
     // Delete Task
     public function deleteTask(Request $request)
     {

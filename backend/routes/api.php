@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -45,12 +46,18 @@ Route::middleware(['VerifyApiKey'])->group(function () {
         "ability:" . TokenAbility::ACCESS_API->value,
     ])->group(function () {
 
+        Route::prefix('user')->group(function () {
+            Route::get('/', [UserController::class, 'showUser']);
+            Route::get('/{id}', [UserController::class, 'showUser']);
+        });
+
         
         Route::prefix('tasks')->group(function () {
             Route::get('/', [TaskController::class, 'showUserTasks']);
             Route::get('/{task_id}', [TaskController::class, 'showUserTasks']); 
             Route::post('/', [TaskController::class, 'createTask']);
             Route::put('/', [TaskController::class, 'updateTask']);
+            Route::put('/status', [TaskController::class, 'toggleTaskStatus']);
             Route::delete('/{task_id}', [TaskController::class, 'deleteTask']);
 
         });

@@ -16,21 +16,17 @@ class ProjectModule
     public function showUserProjects(Request $request)
     {
         try {
-            // Get project ID
             $project_id = $request->route('project_id');
 
-            // Get the authenticated user
             $user = $request->user();
 
-            // Retrieve team IDs for the user
             $teamIds = $user->teams->pluck('id')->toArray();
 
-            // Retrieve user projects based on user ID
             $projects = $project_id ? Project::findOrFail($project_id) : Project::whereIn('team_id', $teamIds)->get();
 
             return ResponseHelper::success(
                 message: "Projects retrieved successfully",
-                data: $projects->load('team', 'team.users')->toArray()
+                data: $projects->load('team', 'tasks', 'team.users')->toArray()
             );
         } catch (\Throwable $th) {
             return ResponseHelper::internalServerError(

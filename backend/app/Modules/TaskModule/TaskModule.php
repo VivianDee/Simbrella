@@ -17,7 +17,7 @@ class TaskModule
             $task_id = $request->route('task_id');
 
             // Retrieve user tasks based on user ID
-            $tasks = $task_id ? Task::findOrFail($task_id) : Task::where('assigned_to', $request->user()->id)->get();
+            $tasks = $task_id ? Task::findOrFail($task_id) : Task::where('assigned_to', $request->user()->id)->orderBy('created_at', 'desc')->get();
 
             if (!$tasks) {
                 return ResponseHelper::notFound(
@@ -71,8 +71,7 @@ class TaskModule
             }
 
             return ResponseHelper::success(
-                message: "Task created successfully",
-                data: $task->load('user')->toArray() ?? []
+                message: "Task created successfully"
             );
         } catch (\Throwable $th) {
             return ResponseHelper::internalServerError(
@@ -113,6 +112,45 @@ class TaskModule
             return ResponseHelper::success(
                 message: "Task updated successfully",
                 data: $task->load('user')->toArray() ?? []
+            );
+        } catch (\Throwable $th) {
+            return ResponseHelper::internalServerError(
+                message: "Internal Server Error",
+                error: $th->getMessage()
+            );
+        }
+    }
+
+    // Update Task
+    public function toggleTaskStatus(Request $request)
+    {
+        try {
+            // Validate the incoming request data
+            $validator = Validator::make($request->all(), [
+                "task_id" => "required|exists:tasks,id",
+            ]);
+
+            // If validation fails, return an error response
+            if ($validator->fails()) {
+                return ResponseHelper::error(
+                    message: "Validation failed",
+                    error: $validator->errors()->toArray()
+                );
+            }
+
+            // Find the task by ID
+            $task = Task::findOrFail($request->task_id);
+
+            // Update task fields
+            $task->update([
+                "status" => $task->status === "completed" ? "pending" : "completed"
+            ]);
+
+            return ResponseHelper::success(
+                message: "Task updated successfully",
+                data: [
+                    "status" => $task->status
+                ]
             );
         } catch (\Throwable $th) {
             return ResponseHelper::internalServerError(
