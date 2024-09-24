@@ -6,12 +6,12 @@ This project is a feature-rich task management application designed to help team
 
 ## Technologies Used
 
-- **Frontend**: TailwindCSS
+- **Frontend**: Bootstrap
 - **Backend**: PHP Laravel
 - **Database**: MySQL
-- **Real-time Updates**: WebSocket
+- **Real-time Updates and Stae Management**: Mobex
 - **Version Control**: Git, GitHub
-- **Deployment**: Vercel (Frontend), Cloud service (Backend: AWS, DigitalOcean)
+- **Deployment**: Vercel
 
 ## Features
 
@@ -19,8 +19,7 @@ This project is a feature-rich task management application designed to help team
 2. **Task Management**: CRUD operations (Create, Read, Update, Delete) for tasks, with the ability to assign tasks to users.
 3. **Project Management**: Manage multiple projects and assign tasks to projects.
 4. **Team Management**: Assign users to projects, and manage teams.
-5. **Real-time Updates**: WebSocket integration for real-time task updates.
-6. **Notifications**: Email notifications for task changes or updates.
+5. **Notifications**: Email notifications for task changes or updates.
 
 ## Prerequisites
 
@@ -34,8 +33,8 @@ This project is a feature-rich task management application designed to help team
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/task-management-app.git
-   cd task-management-app/frontend
+   git clone https://github.com/VivianDee/Simbrella.git
+   cd task-manager-frontend
    ```
 
 2. **Install dependencies**:
@@ -44,10 +43,11 @@ This project is a feature-rich task management application designed to help team
    ```
 
 3. **Configure environment variables**:
-   - Create a `.env.local` file in the root of your frontend project.
+   - Create a `.env` file in the root of your frontend project.
    - Add your environment variables:
      ```env
-     NEXT_PUBLIC_API_URL=http://localhost:5000
+     REACT_APP_BASE_URL=http://127.0.0.1:8000/api/
+     REACT_APP_API_KEY=sk_test_4eC39HqLyjWDarjtT1zdp7dc_8b5kR9QwA2mK7X6YvJ0zLf3Gp1N8cT4Ue9G7O2W8P9H0yR1tQ6xF3L5Vb2Z9J7U
      ```
 
 4. **Run the development server**:
@@ -59,10 +59,10 @@ This project is a feature-rich task management application designed to help team
 
 ### Backend (PHP Laravel)
 
-1. **Clone the backend repository**:
+1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/task-management-app-backend.git
-   cd task-management-app-backend
+    git clone https://github.com/VivianDee/Simbrella.git
+   cd backend
    ```
 
 2. **Install dependencies**:
@@ -77,12 +77,15 @@ This project is a feature-rich task management application designed to help team
 4. **Configure environment variables**:
     - **Laravel**, update `.env` with your MySQL credentials:
      ```env
-     DB_CONNECTION=mysql
-     DB_HOST=127.0.0.1
-     DB_PORT=3306
-     DB_DATABASE=task_management_db
-     DB_USERNAME=root
-     DB_PASSWORD=yourpassword
+     TASK_MAIL_MAILER=smtp
+     TASK_MAIL_HOST=smtp.gmail.com
+     TASK_MAIL_PORT=587
+     TASK_MAIL_USERNAME=taskmanager398@gmail.com
+     TASK_MAIL_PASSWORD=**********
+     TASK_MAIL_ENCRYPTION=ssl
+     TASK_MAIL_FROM_ADDRESS=taskmanager398@gmail.com
+     TASK_MAIL_FROM_NAME="TASK MANAGER"
+     API_KEY=sk_test_4eC39HqLyjWDarjtT1zdp7dc_8b5kR9QwA2mK7X6YvJ0zLf3Gp1N8cT4Ue9G7O2W8P9H0yR1tQ6xF3L5Vb2Z9J7U
      ```
 
 5. **Run migrations**:
@@ -99,13 +102,6 @@ This project is a feature-rich task management application designed to help team
 
 7. **Check API**: The backend API should be running on `http://localhost:8000`.
 
-### WebSocket Server (for real-time updates)
-
-1. **Set up WebSocket**:
-   - The WebSocket server is integrated into the backend (Laravel). No additional setup is required.
-
-2. **Start the WebSocket server**:
-   The WebSocket server will automatically start with the backend.
 
 ## API Endpoints
 
@@ -118,14 +114,14 @@ This project is a feature-rich task management application designed to help team
 - **POST** `/api/tasks`: Create a new task.
 - **GET** `/api/tasks`: Retrieve all tasks.
 - **GET** `/api/tasks/:id`: Retrieve a specific task.
-- **PUT** `/api/tasks/:id`: Update a task.
+- **PUT** `/api/tasks/`: Update a task.
 - **DELETE** `/api/tasks/:id`: Delete a task.
 
 ### Project Management
 - **POST** `/api/projects`: Create a new project.
 - **GET** `/api/projects`: Retrieve all projects.
 - **GET** `/api/projects/:id`: Retrieve a specific project.
-- **PUT** `/api/projects/:id`: Update a project.
+- **PUT** `/api/projects/`: Update a project.
 - **DELETE** `/api/projects/:id`: Delete a project.
 
 ### Team Management
@@ -135,14 +131,7 @@ This project is a feature-rich task management application designed to help team
 
 ## Deployment
 
-1. **Frontend**:
-   - Deploy the frontend to Vercel by connecting your GitHub repository.
-   
-2. **Backend**:
-   - Deploy the backend to .
-   
-3. **CI/CD Pipeline**:
-   - Set up GitHub Actions for continuous integration and deployment.
+   - Deployed to Vercel by connecting GitHub repository.
 
 ## License
 
