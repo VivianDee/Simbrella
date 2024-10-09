@@ -6,7 +6,7 @@ This project is a feature-rich task management application designed to help team
 
 ## Technologies Used
 
-- **Frontend**: Bootstrap
+- **Frontend**: React, Bootstrap
 - **Backend**: PHP Laravel
 - **Database**: MySQL
 - **Real-time Updates and Stae Management**: Mobex
